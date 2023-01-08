@@ -1,4 +1,4 @@
-package tvscrapper
+package tv
 
 import (
 	"encoding/json"
@@ -17,13 +17,13 @@ type Socket struct {
 	conn      *websocket.Conn
 	isClosed  bool
 	sessionID string
-	logger    logging.Logger
+	logger    *logging.Logger
 	pairs     []string
 	levels    map[string][]float32
 }
 
 // Connect - Connects and returns the trading view socket object
-func Connect(logger logging.Logger) (socket *Socket, err error) {
+func Connect(logger *logging.Logger) (socket *Socket, err error) {
 	conn, _, err := (&websocket.Dialer{}).Dial("wss://data.tradingview.com/socket.io/websocket", getHeaders())
 	if err != nil {
 		logger.Errorf("error while socKet connecting: %s", err)
@@ -266,6 +266,15 @@ func (s *Socket) onError() {
 		s.conn.Close()
 		s.isClosed = true
 	}
+}
+
+func (s *Socket) addNewLine(newLine Line) error {
+	err := s.AddSymbol(newLine.Pair)
+	if err != nil {
+		return err
+	}
+	s.pairs = append(s.pairs, newLine.Pair)
+
 }
 
 func getSocketMessage(m string, p interface{}) *SocketMessage {

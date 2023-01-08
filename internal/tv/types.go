@@ -1,4 +1,4 @@
-package tvscrapper
+package tv
 
 // SocketMessage ...
 type SocketMessage struct {
@@ -24,4 +24,13 @@ type QuoteData struct {
 // Flags ...
 type Flags struct {
 	Flags []string `json:"flags"`
+}
+
+type Line struct {
+	ID          int64
+	Pair        string
+	Val         float64
+	Description string
+	Typ         string
+	Timeframe   string
 }

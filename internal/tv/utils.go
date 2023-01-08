@@ -1,4 +1,4 @@
-package tvscrapper
+package tv
 
 import (
 	"encoding/json"

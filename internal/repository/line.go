@@ -12,10 +12,10 @@ const lineTable = "lines"
 
 type LineRepository struct {
 	db     *sql.DB
-	logger logging.Logger
+	logger *logging.Logger
 }
 
-func NewLineRepository(database *sql.DB, logger logging.Logger) *LineRepository {
+func NewLineRepository(database *sql.DB, logger *logging.Logger) *LineRepository {
 	return &LineRepository{db: database, logger: logger}
 }
 
